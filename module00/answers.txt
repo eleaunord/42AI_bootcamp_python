@@ -1,0 +1,39 @@
+1/ Lister les packages installés et leurs versions
+
+conda list
+
+(ou pip list si pas avec conda)
+
+=> shows all the python packages you have installed - useful for debugging, checking versions or sharing your setup
+
+2/ Afficher les métadonnées du package numpy
+
+conda list numpy 
+
+(ou pip show numpy)
+=> displays delated info about Numpy, version, author, install path...
+
+3/ supprimer numpy
+
+conda remove numpy
+
+ (ou pip uninstall numpy)
+ => uninstall numpy from your env, useful if you need to reinstall it or downgrade to a specific version
+
+4/ (ré)installer numpy
+
+conda install numpy
+(ou pip install numpy)
+=> installs numpy again or ensures it's there if you removed it
+
+5/ exporter la liste de tes packages vers un fichier requirements.txt
+
+pip freeze > requirements.txt
+
+=> creates a text file that lists every installed package and version, important file when you share your project so that others can recreated your exact setup with
+pip install -r requirements.txt
+
+
+
+
+
