@@ -19,105 +19,90 @@ cookbook = {
     },
 }
 
-
-# -------------------------
-
-def print_name_recipes():
-
-	for x in cookbook.items():
-		print(x)
+def printing_names():
+	for name in cookbook.items() : 
+		print(name)
 	
-# -------------------------
 
-def print_details(recipe_name:str):
-
-	for x, obj in cookbook.items():
-		if x == recipe_name:
-			for y in obj:
-				print(f"{y} : {obj[y]}")
-
-# -------------------------
-
-def del_recipe(recipe_name):
-	if recipe_name in cookbook:
-		del cookbook[recipe_name]
-	        print(f"Recipe '{recipe_name}' deleted successfully!")
-    else:
-        print(f"Recipe '{recipe_name}' not found in the cookbook.")
-
-# -------------------------
-
-def add_recipe():
-	name = input("Enter a name :\n").strip()
-	if not name:
-		print("Name cannot be empty.")
+def details(recipe_name:str):
+	if recipe_name not in cookbook:
+		print(f"Recipe '{recipe_name}' not found")
 		return
-	if name in cookbook:
-		print("Recipe already exists")
-	
-	print("Enter ingredients")
-	print()print("(Type one ingredient per line; press Enter on an empty line to finish.)")
+	recipe = cookbook[recipe_name]
+	for field, value in recipe.items():
+		print(f"{field}:{value}")
+			
+def delete(recipe_name:str):
+	if recipe_name not in cookbook:
+		print(f"Recipe '{recipe_name}' not found")
+		return
+	del(cookbook[recipe_name])
+	print(f"Recipe {recipe_name} successfully deleted")
+
+def add():
+	new_recipe = input("Please enter recipe name\n").strip()
+	if new_recipe in cookbook:
+		print("error already exists")
+	if not new_recipe : 
+		print("can't be empty")
+		return 
+	print("enter ingredients one per line\n")
 	ingredients = []
-	while True:
+	while 1 : 
 		line = input().strip()
-		if not line:
+		if not line: 
 			break
 		ingredients.append(line)
-	meal = input("Enter a meal type:\n").strip()
-	if not meal:
-			print("Meal cannot be empty")
-			return
-
-	try : 
-		prep_time = int(input("Enter a prep time :\n").strip())
-	except ValueError:
-		print("Preparation time must be an int")
+	meal = input("enter meal type\n").strip()
+	if not meal :
+		print("can't be empty")
 		return
-	
-	cookbook[name] = {
+	try : 
+		prep_time = int (input("enter a prep time :\n").strip())
+	except ValueError:
+		print("prep time must be an int")
+		return
+	cookbook[new_recipe] = {
 		"ingredients" : ingredients,
-		"meal" : meal,
+		"meal": meal,
 		"prep_time" : prep_time,
 	}
-	print(f"Recipe {name} added!")
-
-# -------------------------
+	print(f"Recipe {new_recipe} added!")
 
 def display_menu():
-    print("Welcome to the Python Cookbook!")
-    print("List of available options:")
-    print("1: Add a recipe")
-    print("2: Delete a recipe")
-    print("3: Print a recipe")
-    print("4: Print the cookbook")
-    print("5: Quit\n")
+	print("Welcome list of options :\n")
+	print(" 1 : add recipe\n")
+	print(" 2 : delete recipe\n")
+	print(" 3 : print a recipe\n")
+	print(" 4 : print the cookbook\n")
+	print(" 5 : quit\n")
 
-# -------------------------
 
 def main():
     while True:
         display_menu()
-        choice = input("Please select an option:\n> ").strip()
-
+        choice = input("Please enter option\n").strip()
+        
         if choice == "1":
-            add_recipe_from_input()
+            add()
+            input("\npress enter to return to menu")
         elif choice == "2":
-            name = input("Please enter a recipe name to delete:\n> ").strip()
-            del_recipe(name)
+            name = input("Enter a recipe name to be deleted\n").strip()
+            delete(name)
+            input("\npress enter to return to menu")
         elif choice == "3":
-            name = input("Please enter a recipe name to get its details:\n> ").strip()
-            print_details(name)
+            name = input("Enter a recipe name to be detailed\n").strip()
+            details(name)
+            input("\npress enter to return to menu")
         elif choice == "4":
-            print("All recipes:")
-            print_name_recipes()
-            print()
+            printing_names()
+            input("\npress enter to return to menu")
         elif choice == "5":
-            print("Cookbook closed.")
-            break
+            print("Cookbook closed bye")
+            return 0
         else:
-            print("Sorry, this option does not exist. Please try again.\n")
-
-    return 0
-
-if __name__== "__main__":
+            print("invalid option please try again")
+            input("\npress enter to return to menu")
+		
+if __name__ == "__main__":
 	raise SystemExit(main())
