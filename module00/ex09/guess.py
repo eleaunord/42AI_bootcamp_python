@@ -11,7 +11,7 @@ def main():
 	#randint to get random nb
 	secret = random.randint(1, 99)
 	#print(secret)
-	count = 1
+	count = 0
 	
 	while True : 
 
